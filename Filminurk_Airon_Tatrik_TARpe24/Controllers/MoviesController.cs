@@ -23,7 +23,7 @@ namespace Filminurk_Airon_Tatrik_TARpe24.Controllers
                 LastAiring = x.LastAiring,
                 AirTimes = x.AirTimes,
             });
-            return View();
+            return View(result);
         }
     }
 }
