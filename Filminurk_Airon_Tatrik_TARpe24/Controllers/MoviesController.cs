@@ -16,7 +16,12 @@ namespace Filminurk_Airon_Tatrik_TARpe24.Controllers
         {
             var result = _context.Movies.Select(x => new MoviesIndexViewModel
             {
-
+                ID = x.ID,
+                Title = x.Title,
+                FirstPublished = x.FirstPublished,
+                CurrentRating = x.CurrentRating,
+                LastAiring = x.LastAiring,
+                AirTimes = x.AirTimes,
             });
             return View();
         }
