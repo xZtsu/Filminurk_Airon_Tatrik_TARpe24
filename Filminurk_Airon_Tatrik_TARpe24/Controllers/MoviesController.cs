@@ -25,5 +25,11 @@ namespace Filminurk_Airon_Tatrik_TARpe24.Controllers
             });
             return View(result);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            MoviesCreateViewModel result = new();
+            return View("Create", result);
+        }
     }
 }
