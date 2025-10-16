@@ -1,4 +1,4 @@
-namespace Filminurk_Airon_Tatrik_TARpe24.Models
+namespace Filminurk.Models
 {
     public class ErrorViewModel
     {

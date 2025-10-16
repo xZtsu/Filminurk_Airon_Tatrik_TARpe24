@@ -1,8 +1,9 @@
-using System.Diagnostics;
-using Filminurk_Airon_Tatrik_TARpe24.Models;
-using Microsoft.AspNetCore.Mvc;
+using Filminurk.Models;
 
-namespace Filminurk_Airon_Tatrik_TARpe24.Controllers
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+
+namespace Filminurk.Controllers
 {
     public class HomeController : Controller
     {
