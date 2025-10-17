@@ -13,5 +13,7 @@ namespace Filminurk.Core.ServiceInterface
         Task<Movie> Create(MoviesDTO dto);
         Task<Movie> Delete(Guid id);
         Task<Movie> DetailsAsync(Guid id);
+        Task<Movie> Update(MoviesDTO dto);
+
     }
 }

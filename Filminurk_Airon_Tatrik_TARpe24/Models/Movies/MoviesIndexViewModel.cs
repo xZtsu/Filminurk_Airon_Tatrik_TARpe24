@@ -1,5 +1,6 @@
 ﻿using Filminurk.Core.Domain;
 
+
 namespace Filminurk.Models.Movies
 {
     public class MoviesIndexViewModel
@@ -10,7 +11,7 @@ namespace Filminurk.Models.Movies
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
 
-        /* 3 õpilase valikul andmetüüpi*/
+        /* 2 õpilase valikul andmetüüpi*/
 
         public DateOnly? LastAiring { get; set; }
         public int? AirTimes { get; set; }
