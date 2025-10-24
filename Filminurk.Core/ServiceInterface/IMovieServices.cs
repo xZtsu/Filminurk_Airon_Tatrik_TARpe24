@@ -14,6 +14,9 @@ namespace Filminurk.Core.ServiceInterface
         Task<Movie> Delete(Guid id);
         Task<Movie> DetailsAsync(Guid id);
         Task<Movie> Update(MoviesDTO dto);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     }
 }

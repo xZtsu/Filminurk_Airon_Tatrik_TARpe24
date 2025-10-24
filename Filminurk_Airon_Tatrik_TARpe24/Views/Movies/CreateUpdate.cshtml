@@ -1,7 +1,13 @@
 ﻿﻿@using Filminurk.Core.Domain
 @using Filminurk.Models.Movies
 
+<<<<<<< Updated upstream
 @model Filminurk.Models.Movies.MoviesCreateUpdateViewModel
+=======
+@model Filminurk.Models.Movies.MoviesCreateUpdateViewModel;
+
+
+>>>>>>> Stashed changes
 
 @if (Model.ID.HasValue)
 {
@@ -29,50 +35,61 @@ else
         <div class="form-group row">
             <label asp-for="Description" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Description" class="form-control" />
             </div>
         </div>
 
         <div class="form-group row">
             <label asp-for="FirstPublished" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="FirstPublished" class="form-control" />
             </div>
         </div>
 
         <div class="form-group row">
             <label asp-for="Director" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Director" class="form-control" />
             </div>
         </div>
 
         <div class="form-group row">
             <label asp-for="CurrentRating" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="CurrentRating" class="form-control" />
             </div>
         </div>
 
         <div class="form-group row">
             <label asp-for="LastAiring" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="LastAiring" class="form-control" />
             </div>
         </div>
 
         <div class="form-group row">
             <label asp-for="AirTimes" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="AirTimes" class="form-control" />
             </div>
         </div>
             <div class="form-group row">
                 <label asp-for="BigBooms" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
-                    <input asp-for="Title" class="form-control" />
+                <input asp-for="BigBooms" class="form-control" />
                 </div>
         </div>
+<<<<<<< Updated upstream
+=======
+
+        @foreach (var images in Model.Images)
+        {
+            <partial name="_Image" model="images" />
+            <input asp-action="removeImage" asp-controller="Movies" asp-route-ImageID="@images.ImageID" type="submit" class="btn btn-success" value="Eemalda see pilt" />
+        }
+        
+
+>>>>>>> Stashed changes
         @if (Model.ID.HasValue)
         {
             <input asp-action="Update" asp-controller="Movies" type="submit" class="btn btn-primary" value="Update" />

@@ -14,10 +14,16 @@ namespace Filminurk.ApplicationServices.Services
     public class MovieServices : IMovieServices
     {
         private readonly FilminurkTARpe24Context _context;
+        private readonly IFilesServices _filesServices; // failid
 
-        public MovieServices(FilminurkTARpe24Context context)
+        public MovieServices
+            (
+            FilminurkTARpe24Context context,
+            IFilesServices filesServices // failid
+            )
         {
             _context = context;
+            _filesServices = filesServices; // failid
         }
 
         public async Task<Movie> Create(MoviesDTO dto)
@@ -27,12 +33,12 @@ namespace Filminurk.ApplicationServices.Services
             movie.Title = dto.Title;
             movie.Description = dto.Description;
             movie.CurrentRating = dto.CurrentRating;
-            movie.LastAiring = dto.LastAiring; // minu oma
+            movie.LastAiring = dto.LastAiring; // 
             movie.FirstPublished = (DateOnly)dto.FirstPublished;
             movie.Actors = dto.Actors;
             movie.Director = dto.Director;
-            movie.AirTimes = dto.AirTimes;// minu oma
-            movie.BigBooms = dto.BigBooms;// minu oma
+            movie.AirTimes = dto.AirTimes;// 
+            movie.BigBooms = dto.BigBooms;// 
             movie.EntryCreatedAt = DateTime.Now;
             movie.EntryModifiedAt = DateTime.Now;
 
@@ -62,6 +68,10 @@ namespace Filminurk.ApplicationServices.Services
             movie.BigBooms = dto.BigBooms;// minu oma
             movie.EntryCreatedAt = dto.EntryCreatedAt;
             movie.EntryModifiedAt = DateTime.Now;
+<<<<<<< Updated upstream
+=======
+            _filesServices.FilesToApi(dto, movie);
+>>>>>>> Stashed changes
 
             _context.Movies.Update(movie);
             await _context.SaveChangesAsync();
@@ -73,7 +83,16 @@ namespace Filminurk.ApplicationServices.Services
             var result = await _context.Movies
                 .FirstOrDefaultAsync(m => m.ID == id);
 
+            var images = await _context.FilesToApi
+                .Where(x => x.MovieID == id)
+                .Select(y => new FileToApiDTO
+                {
+                    ImageID = y.ImageID,
+                    MovieID = y.MovieID,
+                    FilePath = y.ExistingFilePath
+                }).ToArrayAsync();
 
+            await _filesServices.RemoveImagesFromApi(images);
             _context.Movies.Remove(result);
             await _context.SaveChangesAsync();
 

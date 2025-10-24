@@ -5,6 +5,7 @@ using Filminurk.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+<<<<<<< Updated upstream
 namespace Filminurk.Controllers
 {
     public class MoviesController : Controller
@@ -67,9 +68,13 @@ namespace Filminurk.Controllers
     }
     return RedirectToAction(nameof(Index));
     }
+=======
+@model Filminurk.Models.Movies.MoviesDeleteViewModel
+>>>>>>> Stashed changes
 
     return NotFound();
 
+<<<<<<< Updated upstream
     }
     [HttpGet]
     public async Task<IActionResult>
@@ -132,6 +137,53 @@ namespace Filminurk.Controllers
                 Delete(Guid id)
                 {
                 var movie = await _movieServices.DetailsAsync(id);
+=======
+<div>
+    <h4>Film</h4>
+    <hr />
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="ID" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.ID)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="Title" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.Title)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="Description" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="FirstPublished" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.FirstPublished)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="Director" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.Director)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="CurrentRating" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.CurrentRating)
+        </div>
+    </dl>
+>>>>>>> Stashed changes
 
                 if (movie == null)
                 {
@@ -153,6 +205,7 @@ namespace Filminurk.Controllers
 
                 return View(vm);
 
+<<<<<<< Updated upstream
                 }
                 [HttpPost]
                 public async Task<IActionResult>
@@ -167,3 +220,18 @@ namespace Filminurk.Controllers
                     }
                     }
                     }
+=======
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="BigBooms" class="col-sm-2 col-form-label" "></label>
+            @Html.DisplayFor(model => model.BigBooms)
+        </div>
+    </dl>
+    <hr />
+    <form asp-action="DeleteConfirmation">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Remove" class="btn btn-danger" />
+        <a asp-action="Index" asp-controller="Movies" class="btn btn-success">Return to list</a>
+    </form>
+</div>
+>>>>>>> Stashed changes

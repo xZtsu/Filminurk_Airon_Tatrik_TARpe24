@@ -11,14 +11,22 @@ namespace Filminurk.Controllers
     {
         private readonly FilminurkTARpe24Context _context;
         private readonly IMovieServices _movieServices;
+<<<<<<< Updated upstream
         public MoviesController
+=======
+        private readonly IFilesServices _filesServices; //piltide lisamiseks vajalik fileservices injection
+        public MoviesController 
+>>>>>>> Stashed changes
             (
                 FilminurkTARpe24Context context,
-                IMovieServices movieServices
+                IMovieServices movieServices,
+                IFilesServices filesServices //piltide lisamiseks vajalik fileservices injection
             )
         {
             _context = context;
             _movieServices = movieServices;
+            _filesServices = filesServices; //piltide lisamiseks vajalik fileservices injection
+
         }
         public IActionResult Index()
         {
@@ -58,6 +66,18 @@ namespace Filminurk.Controllers
                     BigBooms = vm.BigBooms,
                     EntryCreatedAt = vm.EntryCreatedAt,
                     EntryModifiedAt = vm.EntryModifiedAt,
+<<<<<<< Updated upstream
+=======
+                    Files = vm.Files,
+                    FileToApiDTOs = vm.Images
+                    .Select(x => new FileToApiDTO
+                    {
+                        ImageID = x.ImageID,
+                        FilePath = x.FilePath,
+                        MovieID = x.MovieID,
+                        IsPoster = x.IsPoster,
+                    }).ToArray()
+>>>>>>> Stashed changes
                 };
                 var result = await _movieServices.Create(dto);
                 if (result == null)
@@ -71,7 +91,9 @@ namespace Filminurk.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> Update(Guid id)
+<<<<<<< Updated upstream
+=======
+        public async Task<IActionResult> Details(Guid id)
         {
             var movie = await _movieServices.DetailsAsync(id);
 
@@ -79,8 +101,8 @@ namespace Filminurk.Controllers
             {
                 return NotFound();
             }
+            var vm = new MoviesDetailsViewModel();
 
-            var vm = new MoviesCreateUpdateViewModel();
             vm.ID = movie.ID;
             vm.Title = movie.Title;
             vm.Description = movie.Description;
@@ -94,9 +116,55 @@ namespace Filminurk.Controllers
             vm.Director = movie.Director;
             vm.Actors = movie.Actors;
 
+            return View(vm);
+        }
+
+        [HttpGet]
+>>>>>>> Stashed changes
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var movie = await _movieServices.DetailsAsync(id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+<<<<<<< Updated upstream
+=======
+            var images = await _context.FilesToApi
+                .Where(x => x.MovieID == id)
+                .Select(y => new ImageViewModel
+                {
+                    FilePath = y.ExistingFilePath,
+                    ImageID = id
+                }).ToArrayAsync();
+
+>>>>>>> Stashed changes
+            var vm = new MoviesCreateUpdateViewModel();
+            vm.ID = movie.ID;
+            vm.Title = movie.Title;
+            vm.Description = movie.Description;
+            vm.FirstPublished = movie.FirstPublished;
+            vm.CurrentRating = movie.CurrentRating;
+            vm.LastAiring = movie.LastAiring;
+            vm.AirTimes = movie.AirTimes;
+            vm.BigBooms = movie.BigBooms;
+            vm.EntryCreatedAt = movie.EntryCreatedAt;
+            vm.EntryModifiedAt = movie.EntryModifiedAt;
+            vm.Director = movie.Director;
+            vm.Actors = movie.Actors;
+<<<<<<< Updated upstream
+
             return View("CreateUpdate", vm);
         }
 
+=======
+            vm.Images.AddRange(images);
+
+            return View("CreateUpdate", vm);
+        }
+>>>>>>> Stashed changes
         [HttpPost]
         public async Task<IActionResult> Update(MoviesCreateUpdateViewModel vm)
         {
@@ -114,6 +182,17 @@ namespace Filminurk.Controllers
                 EntryModifiedAt = vm.EntryModifiedAt,
                 Director = vm.Director,
                 Actors = vm.Actors,
+<<<<<<< Updated upstream
+=======
+                Files = vm.Files,
+                FileToApiDTOs = vm.Images
+                .Select(x => new FileToApiDTO
+                {
+                    ImageID = x.ImageID,
+                    MovieID = x.MovieID,
+                    FilePath = x.FilePath
+                }).ToArray()
+>>>>>>> Stashed changes
             };
             var result = await _movieServices.Update(dto);
 
@@ -123,16 +202,36 @@ namespace Filminurk.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+<<<<<<< Updated upstream
 
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             var movie = await _movieServices.DetailsAsync(id);
 
+=======
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var movie = await _movieServices.DetailsAsync(id);
+
+>>>>>>> Stashed changes
             if (movie == null)
             {
                 return NotFound();
             }
+<<<<<<< Updated upstream
+=======
+
+            var images = await _context.FilesToApi
+                .Where(x => x.MovieID == id)
+                .Select(y => new ImageViewModel
+                {
+                    FilePath = y.ExistingFilePath,
+                    ImageID = y.ImageID,
+                }).ToArrayAsync();
+
+>>>>>>> Stashed changes
             var vm = new MoviesDeleteViewModel();
             vm.ID = movie.ID;
             vm.Title = movie.Title;
@@ -146,10 +245,18 @@ namespace Filminurk.Controllers
             vm.EntryModifiedAt = movie.EntryModifiedAt;
             vm.Director = movie.Director;
             vm.Actors = movie.Actors;
+<<<<<<< Updated upstream
+=======
+            vm.Images.AddRange(images);
+>>>>>>> Stashed changes
 
             return View(vm);
 
         }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmation(Guid id)
         {
@@ -159,6 +266,7 @@ namespace Filminurk.Controllers
                 return NotFound();
             }
             return RedirectToAction(nameof(Index));
+<<<<<<< Updated upstream
         }
 
         [HttpGet]
@@ -186,6 +294,8 @@ namespace Filminurk.Controllers
             vm.Actors = movie.Actors;
 
             return View(vm);
+=======
+>>>>>>> Stashed changes
         }
     }
 }

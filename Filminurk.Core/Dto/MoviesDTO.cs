@@ -1,5 +1,5 @@
 ﻿using Filminurk.Core.Domain;
-
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,9 @@ namespace Filminurk.Core.Dto
         public List<string>? Actors { get; set; }
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
+
+        public List<IFormFile> Files { get; set; }
+        public IEnumerable<FileToApiDTO> FileToApiDTOs { get; set; } = new List<FileToApiDTO>();
 
         /* 3 õpilase valitud andmetüüpi */
         public DateOnly? LastAiring { get; set; }

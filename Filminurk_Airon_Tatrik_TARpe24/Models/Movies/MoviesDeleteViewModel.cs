@@ -14,10 +14,18 @@ namespace Filminurk.Models.Movies
         public List<string>? Actors { get; set; }
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
+
+        public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
+
+
         public DateOnly? LastAiring { get; set; }
         public int? AirTimes { get; set; }
         public string? BigBooms { get; set; }
+
+
         /* andmebaasi jaoks vajalikud*/
+
+
         public DateTime? EntryCreatedAt { get; set; }
         public DateTime? EntryModifiedAt { get; set; }
 
