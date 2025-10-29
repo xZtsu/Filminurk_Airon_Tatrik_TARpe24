@@ -3,11 +3,6 @@
 
 @model Filminurk.Models.Movies.MoviesCreateUpdateViewModel
 
-
-
-
-
-
 @if (Model.ID.HasValue)
 {
     <h1>Muuda Film</h1>
@@ -82,7 +77,7 @@ else
 
         @foreach (var images in Model.Images)
         {
-            <partial name="_Image" model="images" />
+            <partial name="_Images" model="images" />
             <input asp-action="removeImage" asp-controller="Movies" asp-route-ImageID="@images.ImageID" type="submit" class="btn btn-success" value="Eemalda see pilt" />
         }
         

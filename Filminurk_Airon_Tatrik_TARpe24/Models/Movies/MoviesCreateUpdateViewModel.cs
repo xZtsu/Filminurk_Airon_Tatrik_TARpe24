@@ -1,12 +1,14 @@
 ﻿
 using Filminurk.Core.Domain;
 using Filminurk.Models.Movies;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Filminurk.Models.Movies
 {
     public class MoviesCreateUpdateViewModel
     {
+        
         public Guid? ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

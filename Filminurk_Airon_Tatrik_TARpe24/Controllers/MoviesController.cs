@@ -17,12 +17,12 @@ namespace Filminurk.Controllers
             (
                 FilminurkTARpe24Context context,
                 IMovieServices movieServices,
-                IFilesServices filesServices //piltide lisamiseks vajalik fileservices injection
+                IFilesServices FilesServices //piltide lisamiseks vajalik fileservices injection
             )
         {
             _context = context;
             _movieServices = movieServices;
-            _fileServies = filesServices; //piltide lisamiseks vajalik fileservices injection
+            _fileServies = FilesServices; //piltide lisamiseks vajalik fileservices injection
 
         }
         public IActionResult Index()
