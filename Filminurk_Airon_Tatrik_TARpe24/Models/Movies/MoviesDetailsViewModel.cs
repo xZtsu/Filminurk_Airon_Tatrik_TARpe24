@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
 ﻿using Filminurk.Core.Domain;
 
 namespace Filminurk.Models.Movies
-=======
-﻿namespace Filminurk.Models.Movies
->>>>>>> Stashed changes
 {
     public class MoviesDetailsViewModel
     {
@@ -17,12 +13,6 @@ namespace Filminurk.Models.Movies
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
 
-<<<<<<< Updated upstream
-=======
-        /* Kassasolevate piltide andmeomadused */
-        public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
-
->>>>>>> Stashed changes
         /* 3 õpilase valitud andmetüüpi */
         public DateOnly? LastAiring { get; set; }
         public int? AirTimes { get; set; }
@@ -32,8 +22,4 @@ namespace Filminurk.Models.Movies
         public DateTime? EntryCreatedAt { get; set; }
         public DateTime? EntryModifiedAt { get; set; }
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

@@ -1,13 +1,12 @@
 ﻿﻿@using Filminurk.Core.Domain
 @using Filminurk.Models.Movies
 
-<<<<<<< Updated upstream
 @model Filminurk.Models.Movies.MoviesCreateUpdateViewModel
-=======
-@model Filminurk.Models.Movies.MoviesCreateUpdateViewModel;
 
 
->>>>>>> Stashed changes
+
+
+
 
 @if (Model.ID.HasValue)
 {
@@ -79,8 +78,7 @@ else
                 <input asp-for="BigBooms" class="form-control" />
                 </div>
         </div>
-<<<<<<< Updated upstream
-=======
+
 
         @foreach (var images in Model.Images)
         {
@@ -89,7 +87,7 @@ else
         }
         
 
->>>>>>> Stashed changes
+
         @if (Model.ID.HasValue)
         {
             <input asp-action="Update" asp-controller="Movies" type="submit" class="btn btn-primary" value="Update" />

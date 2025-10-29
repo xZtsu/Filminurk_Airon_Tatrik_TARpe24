@@ -68,10 +68,6 @@ namespace Filminurk.ApplicationServices.Services
             movie.BigBooms = dto.BigBooms;// minu oma
             movie.EntryCreatedAt = dto.EntryCreatedAt;
             movie.EntryModifiedAt = DateTime.Now;
-<<<<<<< Updated upstream
-=======
-            _filesServices.FilesToApi(dto, movie);
->>>>>>> Stashed changes
 
             _context.Movies.Update(movie);
             await _context.SaveChangesAsync();
