@@ -9,7 +9,7 @@ namespace Filminurk.Core.Domain
 {
     public class FileToApi
     {
-        
+        [Key]
         public Guid ImageID { get; set; }
         public string? ExistingFilePath { get; set; }
         public Guid? MovieID { get; set; }

@@ -4,6 +4,7 @@ using Filminurk.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Filminurk.Data.Migrations
 {
     [DbContext(typeof(FilminurkTARpe24Context))]
-    partial class FilminurkTARpe24ContextModelSnapshot : ModelSnapshot
+    [Migration("20251030081938_sak")]
+    partial class sak
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,8 +80,8 @@ namespace Filminurk.Data.Migrations
                     b.Property<DateOnly>("FirstPublished")
                         .HasColumnType("date");
 
-                    b.Property<string>("LastAiring")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateOnly?>("LastAiring")
+                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .IsRequired()

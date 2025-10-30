@@ -1,4 +1,4 @@
-﻿﻿using Filminurk.Core.Domain;
+﻿using Filminurk.Core.Domain;
 using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
@@ -60,7 +60,7 @@ namespace Filminurk.ApplicationServices.Services
             movie.Title = dto.Title;
             movie.Description = dto.Description;
             movie.CurrentRating = dto.CurrentRating;
-            movie.LastAiring = dto.LastAiring; // minu oma
+            movie.LastAiring = dto.LastAiring;// minu oma
             movie.FirstPublished = (DateOnly)dto.FirstPublished;
             movie.Actors = dto.Actors;
             movie.Director = dto.Director;

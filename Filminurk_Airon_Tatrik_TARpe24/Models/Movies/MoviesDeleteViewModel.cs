@@ -18,7 +18,7 @@ namespace Filminurk.Models.Movies
         public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
 
 
-        public DateOnly? LastAiring { get; set; }
+        public string? LastAiring { get; set; }
         public int? AirTimes { get; set; }
         public string? BigBooms { get; set; }
 

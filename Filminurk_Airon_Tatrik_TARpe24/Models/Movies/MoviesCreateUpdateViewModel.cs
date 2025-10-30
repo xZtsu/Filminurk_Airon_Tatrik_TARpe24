@@ -24,7 +24,7 @@ namespace Filminurk.Models.Movies
 
         /* 3 õpilase valikul andmetüüpi*/
 
-        public DateOnly? LastAiring { get; set; }
+        public string? LastAiring { get; set; }
         public int? AirTimes { get; set; }
         public string? BigBooms { get; set; }
 

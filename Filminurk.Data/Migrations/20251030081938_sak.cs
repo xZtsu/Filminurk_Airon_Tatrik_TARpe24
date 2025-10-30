@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Filminurk.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class sak : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "FilesToApi",
+                columns: table => new
+                {
+                    ImageID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ExistingFilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MovieID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsPoster = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FilesToApi", x => x.ImageID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Movies",
                 columns: table => new
@@ -21,10 +35,12 @@ namespace Filminurk.Data.Migrations
                     FirstPublished = table.Column<DateOnly>(type: "date", nullable: false),
                     Director = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Actors = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CurrentRating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    CurrentRating = table.Column<double>(type: "float", nullable: true),
                     LastAiring = table.Column<DateOnly>(type: "date", nullable: true),
                     AirTimes = table.Column<int>(type: "int", nullable: true),
-                    BigBooms = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BigBooms = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EntryModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,6 +51,9 @@ namespace Filminurk.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FilesToApi");
+
             migrationBuilder.DropTable(
                 name: "Movies");
         }

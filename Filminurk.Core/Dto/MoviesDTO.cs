@@ -23,7 +23,7 @@ namespace Filminurk.Core.Dto
         public IEnumerable<FileToApiDTO> FileToApiDTOs { get; set; } = new List<FileToApiDTO>();
 
         /* 3 õpilase valitud andmetüüpi */
-        public DateOnly? LastAiring { get; set; }
+        public string? LastAiring { get; set; }
         public int? AirTimes { get; set; }
         public string? BigBooms { get; set; }
 

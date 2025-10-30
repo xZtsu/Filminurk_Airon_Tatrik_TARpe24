@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Filminurk.Data.Migrations
 {
     [DbContext(typeof(FilminurkTARpe24Context))]
-    [Migration("20251009085001_init1")]
-    partial class init1
+    [Migration("20251030083025_sasd")]
+    partial class sasd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,26 @@ namespace Filminurk.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Filminurk.Core.Domain.FileToApi", b =>
+                {
+                    b.Property<Guid>("ImageID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ExistingFilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsPoster")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("MovieID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ImageID");
+
+                    b.ToTable("FilesToApi");
+                });
 
             modelBuilder.Entity("Filminurk.Core.Domain.Movie", b =>
                 {
@@ -40,8 +60,8 @@ namespace Filminurk.Data.Migrations
                     b.Property<string>("BigBooms")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("CurrentRating")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -50,6 +70,12 @@ namespace Filminurk.Data.Migrations
                     b.Property<string>("Director")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EntryCreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EntryModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateOnly>("FirstPublished")
                         .HasColumnType("date");

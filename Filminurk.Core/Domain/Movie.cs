@@ -19,7 +19,7 @@ namespace Filminurk.Core.Domain
 
         /* 3 õpilase valikul andmetüüpi*/
 
-        public DateOnly? LastAiring { get; set; }
+        public string? LastAiring { get; set; }
         public int? AirTimes { get; set; }
         public string? BigBooms { get; set; }
 

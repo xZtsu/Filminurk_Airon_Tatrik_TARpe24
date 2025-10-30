@@ -13,8 +13,11 @@ namespace Filminurk.Models.Movies
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
 
+
+        public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
+
         /* 3 õpilase valitud andmetüüpi */
-        public DateOnly? LastAiring { get; set; }
+        public string? LastAiring { get; set; }
         public int? AirTimes { get; set; }
         public string? BigBooms { get; set; }
 
