@@ -7,11 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\multipleFileUpload\a0b4310d-57e9-429b-892c-e4208c29e482_Untitled.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.20">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="wwwroot\multipleFileUpload\a0b4310d-57e9-429b-892c-e4208c29e482_Untitled.png" />
   </ItemGroup>
 
   <ItemGroup>

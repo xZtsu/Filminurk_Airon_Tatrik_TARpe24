@@ -41,6 +41,7 @@ namespace Filminurk.ApplicationServices.Services
             movie.BigBooms = dto.BigBooms;// 
             movie.EntryCreatedAt = DateTime.Now;
             movie.EntryModifiedAt = DateTime.Now;
+            _filesServices.FilesToApi(dto, movie);
 
             await _context.Movies.AddAsync(movie);
             await _context.SaveChangesAsync();
@@ -68,7 +69,8 @@ namespace Filminurk.ApplicationServices.Services
             movie.BigBooms = dto.BigBooms;// minu oma
             movie.EntryCreatedAt = dto.EntryCreatedAt;
             movie.EntryModifiedAt = DateTime.Now;
-
+            _filesServices.FilesToApi(dto, movie);
+           
             _context.Movies.Update(movie);
             await _context.SaveChangesAsync();
             return movie;
