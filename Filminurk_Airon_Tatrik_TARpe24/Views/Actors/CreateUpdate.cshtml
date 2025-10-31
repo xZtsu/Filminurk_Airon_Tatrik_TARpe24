@@ -1,0 +1,107 @@
+﻿﻿@using Filminurk.Core.Domain
+@using Filminurk.Models.Actors
+
+@model Filminurk.Models.Actors.ActorsCreateUpdateViewModel
+
+@if (Model.ID.HasValue)
+{
+    <h1>Muuda Film</h1>
+}
+else
+{
+    <h1>Lisa Film</h1>
+}
+
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="ID" type="hidden" />
+        <input asp-for="EntryCreatedAt" type="hidden" />
+        <input asp-for="EntryModifiedAt" type="hidden" />
+
+        <div class="form-group row">
+            <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="LastName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="NickName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="NickName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="MoviesActedFor" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="MoviesActedFor" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="PortraitID" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="PortraitID" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="ActorRating" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="ActorRating" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="HomeCountry" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <select asp-for="HomeCountry" asp-items="Html.GetEnumSelectList<HomeCountry>()">
+                    <option value="">-- Vali Koduriik --</option>
+                </select>
+                <span asp-validation-for="HomeCountry"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="FavouriteHobby" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="FavouriteHobby" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Files" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="Files" multiple type="file" />
+            </div>
+        </div>
+
+
+        @foreach (var images in Model.Images)
+        {
+            <partial name="_Images" model="images" />
+            <input asp-action="removeImage" asp-controller="Movies" asp-route-ImageID="@images.ImageID" type="submit" class="btn btn-success" value="Eemalda see pilt" />
+        }
+
+
+
+        @if (Model.ID.HasValue)
+        {
+            <input asp-action="Update" asp-controller="Actors" type="submit" class="btn btn-primary" value="Update" />
+        }
+        else
+        {
+            <input asp-action="Create" asp-controller="Actors" type="submit" class="btn btn-primary" value="Create" />
+        }
+        <a asp-action="Index" asp-controller="Actors" class="btn btn-success">Back</a>
+
+    </form>
+</div>

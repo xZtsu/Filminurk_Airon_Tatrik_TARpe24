@@ -23,7 +23,8 @@ namespace Filminurk.ApplicationServices.Services
             _context = context;
         }
 
-        public void  FilesToApi(MoviesDTO dto, Movie domain)
+ 
+        public void FilesToApi(MoviesDTO dto, Movie domain)
         {
             if (dto.Files != null && dto.Files.Count > 0)
             {
@@ -38,24 +39,23 @@ namespace Filminurk.ApplicationServices.Services
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePath,FileMode.Create))
                     {
                         file.CopyTo(fileStream);
-                        FileToApi path = new FileToApi
-                        {
+                        FileToApi path = new FileToApi 
+                        { 
                             ImageID = Guid.NewGuid(),
                             ExistingFilePath = uniqueFileName,
                             MovieID = domain.ID,
                         };
 
-                        _context.FilesToApi.AddAsync(path);
+                        _context.FilesToApi.Add(path);
                     }
 
                 }
 
             }
         }
-
         public async Task<FileToApi> RemoveImageFromApi(FileToApiDTO dto)
         {
             var imageID = await _context.FilesToApi.FirstOrDefaultAsync(x => x.ImageID == dto.ImageID);
