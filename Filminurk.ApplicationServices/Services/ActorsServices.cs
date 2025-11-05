@@ -70,7 +70,7 @@ namespace Filminurk.ApplicationServices.Services
             actors.EntryCreatedAt = DateTime.Now;
             actors.EntryModifiedAt = DateTime.Now;
 
-            //_filesServices.FilesToApi(dto, actors);
+            _filesServices.FilesToApi(dto, actors);
 
             _context.Actors.Update(actors);
             await _context.SaveChangesAsync();

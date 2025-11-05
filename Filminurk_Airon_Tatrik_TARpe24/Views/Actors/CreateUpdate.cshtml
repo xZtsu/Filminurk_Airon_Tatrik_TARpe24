@@ -5,11 +5,11 @@
 
 @if (Model.ID.HasValue)
 {
-    <h1>Muuda Film</h1>
+    <h1>Muuda Näitlejat</h1>
 }
 else
 {
-    <h1>Lisa Film</h1>
+    <h1>Lisa Näitleja</h1>
 }
 
 
@@ -88,7 +88,7 @@ else
         @foreach (var images in Model.Images)
         {
             <partial name="_Images" model="images" />
-            <input asp-action="removeImage" asp-controller="Movies" asp-route-ImageID="@images.ImageID" type="submit" class="btn btn-success" value="Eemalda see pilt" />
+            <input asp-action="removeImage" asp-controller="Actors" asp-route-ImageID="@images.ImageID" type="submit" class="btn btn-success" value="Eemalda see pilt" />
         }
 
 

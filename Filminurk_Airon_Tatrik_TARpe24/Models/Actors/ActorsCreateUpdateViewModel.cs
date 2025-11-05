@@ -13,7 +13,8 @@ namespace Filminurk.Models.Actors
         public List<string> MoviesActedFor { get; set; }
         public string? PortraitID { get; set; }
         public List<IFormFile>? Files { get; set; }
-        public IEnumerable<FileToApiDTO>? Images { get; set; } = new List<FileToApiDTO>();
+        public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
+        public IEnumerable<FileToApiDTO>? FileToApiDTOs { get; set; } = new List<FileToApiDTO>();
 
         /* Kolm minu */
         public double? ActorRating { get; set; }
