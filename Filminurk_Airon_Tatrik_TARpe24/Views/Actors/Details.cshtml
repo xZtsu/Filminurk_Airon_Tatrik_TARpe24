@@ -1,0 +1,96 @@
+﻿@model Filminurk.Models.Actors.ActorsDetailsViewModel
+<h1>Filmi info</h1>
+
+<div>
+    <h4>Filmi info</h4>
+    <hr />
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ID)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FirstName)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.LastName)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="NickName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.NickName)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="MoviesActedFor" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.MoviesActedFor)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="PortraitID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.PortraitID)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="ActorRating" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ActorRating)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="HomeCountry" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.HomeCountry)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="FavouriteHobby" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FavouriteHobby)
+        </div>
+    </dl>
+
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="EntryCreatedAt" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.EntryCreatedAt)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="EntryModifiedAt" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.EntryModifiedAt)
+        </div>
+    </dl>
+
+    <dl>
+        @foreach (var images in Model.Images)
+        {
+            <partial name="_Images" model="images" />
+        }
+    </dl>
+
+    <hr />
+
+    <a asp-action="Index" asp-controller="Actors" class="btn btn-danger">Tagasi</a>
+</div>

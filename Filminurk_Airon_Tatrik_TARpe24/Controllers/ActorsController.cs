@@ -1,7 +1,9 @@
-﻿using Filminurk.Core.Dto;
+﻿using Filminurk.ApplicationServices.Services;
+using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
 using Filminurk.Models.Actors;
+using Filminurk.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,18 +12,18 @@ namespace Filminurk.Controllers
     public class ActorsController : Controller
     {
         private readonly FilminurkTARpe24Context _context;
-        private readonly IActorServices _actorServices;
+        private readonly IActorsServices _actorsServices;
         private readonly IFilesServices _filesServices; //piltide lisamiseks vajalik fileservices injection
 
         public ActorsController
            (
                FilminurkTARpe24Context context,
-               IActorServices _actorServices,
+               IActorsServices actorsServices,
                IFilesServices filesServices //piltide lisamiseks vajalik fileservices injection
            )
         {
             _context = context;
-            _actorServices = _actorServices;
+            _actorsServices = actorsServices;
             _filesServices = filesServices; //piltide lisamiseks vajalik fileservices injection
         }
         public IActionResult Index()
@@ -68,11 +70,11 @@ namespace Filminurk.Controllers
                     {
                         ImageID = x.ImageID,
                         FilePath = x.FilePath,
-                        ActorID = x.ActorID,
+                        MovieID = x.MovieID,
                         IsPoster = x.IsPoster,
                     }).ToArray()
                 };
-                var result = await _actorServices.Create(dto);
+                var result = await _actorsServices.Create(dto);
                 if (result == null)
                 {
                     return NotFound();
@@ -86,6 +88,50 @@ namespace Filminurk.Controllers
 
             return RedirectToAction(nameof(Index));
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var actors = await _actorsServices.DetailsAsync(id);
+
+            if (actors == null)
+            {
+                return NotFound();
+            }
+            Models.Actors.ImageViewModel[] images = await FileFromDatabase(id);
+
+            var vm = new ActorsDetailsViewModel();
+
+            vm.ID = actors.ID;
+            vm.FirstName = actors.FirstName;
+            vm.LastName = actors.LastName;
+            vm.NickName = actors.NickName;
+            vm.MoviesActedFor = actors.MoviesActedFor;
+            vm.PortraitID = actors.PortraitID;
+            
+
+            vm.ActorRating = actors.ActorRating;
+            vm.HomeCountry = actors.HomeCountry;
+            vm.FavouriteHobby = actors.FavouriteHobby;
+            vm.EntryCreatedAt = actors.EntryCreatedAt;
+            vm.EntryModifiedAt = actors.EntryModifiedAt;
+
+
+            vm.Images.AddRange(images);
+
+            return View(vm);
+        }
+        private async Task<Models.Actors.ImageViewModel[]> FileFromDatabase(Guid id)
+        {
+            return await _context.FilesToApi
+                .Where(x => x.ActorID == id)
+                .Select(y => new Models.Actors.ImageViewModel
+                {
+                    ImageID = y.ImageID,
+                    ActorID = y.ActorID,
+                    IsPoster = y.IsPoster,
+                    FilePath = y.ExistingFilePath
+                }).ToArrayAsync();
         }
     }
 }
