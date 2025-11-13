@@ -1,5 +1,85 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿﻿@using Filminurk.Core.Domain
+@using Filminurk.Models.Actors
+
+@model Filminurk.Models.Actors.ActorsCreateUpdateViewModel
+<h1>Kustuta Film</h1>
+
+<div>
+    <h4>Film</h4>
+    <hr />
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ID)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FirstName)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.LastName)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="NickName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.NickName)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="MoviesActedFor" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.MoviesActedFor)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="PortraitID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.PortraitID)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="ActorRating" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ActorRating)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="HomeCountry" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.HomeCountry)
+        </div>
+    </dl>
+
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="FavouriteHobby" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FavouriteHobby)
+        </div>
+    </dl>
+    <dl>
+        @foreach (var images in Model.Images)
+        {
+            <partial name="_Images" model="images" />
+        }
+    </dl>
+    <hr />
+    <form asp-action="DeleteConfirmation">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Remove" class="btn btn-danger" />
+        <a asp-action="Index" asp-controller="Actors" class="btn btn-success">Return to list</a>
+    </form>
+</div>

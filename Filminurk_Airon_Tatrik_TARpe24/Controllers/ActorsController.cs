@@ -1,4 +1,5 @@
 ﻿using Filminurk.ApplicationServices.Services;
+using Filminurk.Core.Domain;
 using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
@@ -202,6 +203,52 @@ namespace Filminurk.Controllers
             var result = await _actorsServices.Update(dto);
 
             if (result == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var actors = await _actorsServices.DetailsAsync(id);
+
+            if (actors == null)
+            {
+                return NotFound();
+            }
+
+            var images = await _context.FilesToApi
+                .Where(x => x.ActorID == id)
+                .Select(y => new Models.Actors.ImageViewModel
+                {
+                    FilePath = y.ExistingFilePath,
+                    ImageID = y.ImageID,
+                }).ToArrayAsync();
+
+            var vm = new ActorsCreateUpdateViewModel();
+            vm.ID = actors.ID;
+            vm.FirstName = actors.FirstName;
+            vm.LastName = actors.LastName;
+            vm.NickName = actors.NickName;
+            vm.MoviesActedFor = actors.MoviesActedFor;
+            vm.PortraitID = actors.PortraitID;
+            vm.ActorRating = actors.ActorRating;
+            vm.HomeCountry = actors.HomeCountry;
+            vm.EntryCreatedAt = actors.EntryCreatedAt;
+            vm.EntryModifiedAt = actors.EntryModifiedAt;
+            vm.FavouriteHobby = actors.FavouriteHobby;
+            
+            vm.Images.AddRange(images);
+
+            return View(vm);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
+        {
+            var actors = await _actorsServices.Delete(id);
+            if (actors == null)
             {
                 return NotFound();
             }
