@@ -4,6 +4,7 @@ using Filminurk.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Filminurk.Data.Migrations
 {
     [DbContext(typeof(FilminurkTARpe24Context))]
-    partial class FilminurkTARpe24ContextModelSnapshot : ModelSnapshot
+    [Migration("20251113075924_zigmas")]
+    partial class zigmas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,7 +141,7 @@ namespace Filminurk.Data.Migrations
 
             modelBuilder.Entity("Filminurk.Core.Domain.UserComment", b =>
                 {
-                    b.Property<Guid?>("CommentID")
+                    b.Property<Guid>("CommentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -146,13 +149,13 @@ namespace Filminurk.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CommentCreatedAt")
+                    b.Property<DateTime>("CommentCreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("CommentDeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("CommentModifiedAt")
+                    b.Property<DateTime>("CommentModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CommentedScore")
@@ -161,10 +164,10 @@ namespace Filminurk.Data.Migrations
                     b.Property<string>("CommenterUserID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IsHarmful")
+                    b.Property<int>("IsHarmful")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IsHelpful")
+                    b.Property<int>("IsHelpful")
                         .HasColumnType("int");
 
                     b.HasKey("CommentID");

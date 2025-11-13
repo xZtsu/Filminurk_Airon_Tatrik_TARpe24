@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Filminurk.Core.Domain;
+using Filminurk.Core.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Filminurk.Core.ServiceInterface
 {
-    internal class IUserCommentServices
+    public interface IUserCommentsServices
     {
+        Task<UserComment> NewComment(UserCommentDTO userCommentDTO);
+        Task<UserComment> DetailAsync(Guid id);
     }
 }
