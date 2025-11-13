@@ -50,13 +50,13 @@ namespace Filminurk.Controllers
         public async Task<IActionResult> NewCommentPost(UserCommentsCreateViewModel newcommentVM)
         {
 
-           // newcommentVM.CommenterUserID = "00000000-0000-0000-000000000001";
+            // newcommentVM.CommenterUserID = "00000000-0000-0000-000000000001";
             Console.WriteLine(newcommentVM.CommenterUserID);
 
             if (ModelState.IsValid)
             {
-                var dto = new UserCommentDTO() { } ;
-                
+                var dto = new UserCommentDTO() { };
+
 
                 dto.CommentID = newcommentVM.CommentID;
                 dto.CommentBody = newcommentVM.CommentBody;
@@ -112,7 +112,38 @@ namespace Filminurk.Controllers
 
             return View(commentVM);
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteComment(Guid id)
+        {
+            var deleteEntry = await _userCommentsServices.DetailAsync(id);
+
+            if (deleteEntry == null) { return NotFound(); }
+
+            var commentVM = new UserCommentsIndexViewModel();
+            commentVM.CommentID = deleteEntry.CommentID;
+            commentVM.CommentBody = deleteEntry.CommentBody;
+            commentVM.CommenterUserID = deleteEntry.CommenterUserID;
+            commentVM.CommentedScore = deleteEntry.CommentedScore;
+            commentVM.CommentCreatedAt = deleteEntry.CommentCreatedAt;
+            commentVM.CommentModifiedAt = deleteEntry.CommentModifiedAt;
+            commentVM.CommentDeletedAt = deleteEntry.CommentDeletedAt;
+            commentVM.IsHelpful = deleteEntry.IsHelpful;
+            commentVM.IsHarmful = deleteEntry.IsHarmful;
+
+            return View("DeleteAdmin", commentVM);
+        }
+        [HttpPost, ActionName("DeleteAdminPost")]
+        public async Task<IActionResult> DeleteCommentAdmin(Guid id)
+        {
+            var deleteThisComment = await _userCommentsServices.Delete(id);
+            if (deleteThisComment == null) { return NotFound(); }
 
 
+
+            return RedirectToAction("Index");
+
+
+
+        }
     }
 }
