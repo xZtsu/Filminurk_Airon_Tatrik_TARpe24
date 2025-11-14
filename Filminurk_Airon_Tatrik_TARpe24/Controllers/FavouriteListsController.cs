@@ -19,7 +19,7 @@ namespace Filminurk.Controllers
         {
               var resultingLists = _context.FavouriteLists
                 .OrderByDescending(y => y.ListCreatedAt) //sorteeri nimekiri langevas järjekorras kuupäeva-kellaaja järgi
-                .Select(x => new FavuriteListIndexViewModel()
+                .Select(x => new FavouriteListIndexViewModel()
                 {
                     FavouriteListID = x.FavouriteListID,
                     ListBelongsToUser = x.ListBelongsToUser,

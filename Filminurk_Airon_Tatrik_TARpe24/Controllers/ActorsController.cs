@@ -226,21 +226,21 @@ namespace Filminurk.Controllers
                     ImageID = y.ImageID,
                 }).ToArrayAsync();
 
-            var vm = new ActorsCreateUpdateViewModel();
+            var vm = new ActorsDeleteViewModel();
             vm.ID = actors.ID;
             vm.FirstName = actors.FirstName;
             vm.LastName = actors.LastName;
             vm.NickName = actors.NickName;
             vm.MoviesActedFor = actors.MoviesActedFor;
             vm.PortraitID = actors.PortraitID;
+
+
             vm.ActorRating = actors.ActorRating;
             vm.HomeCountry = actors.HomeCountry;
+            vm.FavouriteHobby = actors.FavouriteHobby;
             vm.EntryCreatedAt = actors.EntryCreatedAt;
             vm.EntryModifiedAt = actors.EntryModifiedAt;
-            vm.FavouriteHobby = actors.FavouriteHobby;
-            
             vm.Images.AddRange(images);
-
             return View(vm);
 
         }

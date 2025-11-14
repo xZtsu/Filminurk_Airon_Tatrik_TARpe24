@@ -14,6 +14,8 @@ namespace Filminurk.Models.Actors
         public List<IFormFile>? Files { get; set; }
 
         public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
+        
+
 
         /* Kolm minu */
         public double? ActorRating { get; set; }

@@ -19,8 +19,8 @@ namespace Filminurk.Core.Dto
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
 
-        public List<IFormFile> Files { get; set; }
-        public IEnumerable<FileToApiDTO> FileToApiDTOs { get; set; } = new List<FileToApiDTO>();
+        public List<IFormFile>? Files { get; set; }
+        public IEnumerable<FileToApiDTO>? FileToApiDTOs { get; set; } = new List<FileToApiDTO>();
 
         /* 3 õpilase valitud andmetüüpi */
         public string? LastAiring { get; set; }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Filminurk.Models.FavouriteLists
 {
-    public class FavuriteListIndexViewModel
+    public class FavouriteListIndexViewModel
     {
         
         public Guid FavouriteListID { get; set; }
@@ -19,6 +19,6 @@ namespace Filminurk.Models.FavouriteLists
         public DateTime? ListModifiedAt { get; set; }
         public DateTime? ListDeletedAt { get; set; }
         public bool? IsReported { get; set; } = false;
-        public List<FavuriteListIndexViewModel> Image {  get; set; } = new List<FavuriteListIndexViewModel>();
+        public List<FavouriteListIndexImageViewModel> Image {  get; set; } = new List<FavouriteListIndexImageViewModel>();
     }
 }

@@ -4,7 +4,7 @@ namespace Filminurk.Models.FavouriteLists
 {
     public class FavouriteListIndexImageViewModel
     {
-        [Key]
+        
         public Guid ImageID { get; set; }
         public string ImageTitle { get; set; }
         public byte[] ImageData { get; set; }
