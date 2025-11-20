@@ -93,7 +93,7 @@ namespace Filminurk.ApplicationServices.Services
 
             await _filesServices.RemoveImagesFromApi(images);
             _context.Actors.Remove(result);
-            await _context.SaveChangesAsync();
+             _context.SaveChangesAsync();
 
             return result;
         }

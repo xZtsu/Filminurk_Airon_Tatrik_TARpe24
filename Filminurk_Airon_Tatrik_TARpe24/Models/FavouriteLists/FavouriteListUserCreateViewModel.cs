@@ -1,25 +1,21 @@
 ﻿using Filminurk.Core.Domain;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Filminurk.Core.Dto
+namespace Filminurk.Models.FavouriteLists
 {
-    public class FavouriteListDTO
+    public class FavouriteListUserCreateViewModel
     {
         public Guid FavouriteListID { get; set; }
         public string ListBelongsToUser { get; set; }
         public bool isMovieOrActor { get; set; }
         public string ListName { get; set; }
-        public string? ListDescription { get; set; }
-        public bool? IsPrivate { get; set; }
+        public string ListDescription { get; set; }
+        public bool IsPrivate { get; set; }
         public List<Movie>? ListOfMovies { get; set; }
+        //public List<Actor>? ListOfMovies { get; set; }
         
-        public List<IFormFile> Files { get; set; }
-        public IEnumerable<FileToDatabaseDTO> Image { get; set; } = new List<FileToDatabaseDTO>();
+       
+        public List<FavouriteListIndexImageViewModel> Image { get; set; } = new List<FavouriteListIndexImageViewModel>();
+
         public DateTime ListCreatedAt { get; set; }
         public DateTime? ListModifiedAt { get; set; }
         public DateTime? ListDeletedAt { get; set; }
