@@ -5,14 +5,14 @@
 namespace Filminurk.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class zigma2 : Migration
+    public partial class init3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "CommenterUserID",
-                table: "UserComments",
+                name: "ListBelongsToUser",
+                table: "FavouriteLists",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -23,8 +23,8 @@ namespace Filminurk.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "CommenterUserID",
-                table: "UserComments",
+                name: "ListBelongsToUser",
+                table: "FavouriteLists",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",

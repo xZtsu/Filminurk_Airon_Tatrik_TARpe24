@@ -79,7 +79,6 @@ namespace Filminurk.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ListBelongsToUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ListCreatedAt")

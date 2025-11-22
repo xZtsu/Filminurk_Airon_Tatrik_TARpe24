@@ -11,7 +11,7 @@ namespace Filminurk.Core.Dto
     public class FavouriteListDTO
     {
         public Guid FavouriteListID { get; set; }
-        public string ListBelongsToUser { get; set; }
+        public string? ListBelongsToUser { get; set; }
         public bool isMovieOrActor { get; set; }
         public string ListName { get; set; }
         public string? ListDescription { get; set; }
