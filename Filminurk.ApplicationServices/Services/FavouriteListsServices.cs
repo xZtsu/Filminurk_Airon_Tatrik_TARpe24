@@ -35,6 +35,7 @@ namespace Filminurk.ApplicationServices.Services
             newList.ListName = dto.ListName;
             newList.ListDescription = dto.ListDescription;
             newList.ListCreatedAt = dto.ListCreatedAt;
+            newList.ListBelongsToUser = dto.ListBelongsToUser;
             newList.ListModifiedAt = dto.ListModifiedAt;
             newList.ListDeletedAt = dto.ListDeletedAt;
             newList.ListOfMovies = dto.ListOfMovies;
@@ -48,5 +49,6 @@ namespace Filminurk.ApplicationServices.Services
             //}
             return newList;
         }
+
     }
 }
