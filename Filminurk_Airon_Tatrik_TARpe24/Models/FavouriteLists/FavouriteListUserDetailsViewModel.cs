@@ -5,7 +5,7 @@ namespace Filminurk.Models.FavouriteLists
     public class FavouriteListUserDetailsViewModel
     {
 
-        public Guid? FavouriteListID { get; set; }
+        public Guid FavouriteListID { get; set; }
         public string ListBelongsToUser { get; set; }
         public bool isMovieOrActor { get; set; }
         public string ListName { get; set; }
@@ -15,7 +15,7 @@ namespace Filminurk.Models.FavouriteLists
         //public List<Actor>? ListOfMovies { get; set; }
 
 
-        public FavouriteListIndexImageViewModel? Image { get; set; } = new FavouriteListIndexImageViewModel();
+        public List<FavouriteListIndexImageViewModel> Image { get; set; } = new List<FavouriteListIndexImageViewModel>();
 
         public DateTime? ListCreatedAt { get; set; }
         public DateTime? ListModifiedAt { get; set; }

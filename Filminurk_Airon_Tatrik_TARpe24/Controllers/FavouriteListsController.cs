@@ -7,6 +7,7 @@ using Filminurk.Models.Movies;
 using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.ApplicationServices.Services;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Filminurk.Controllers
@@ -116,9 +117,10 @@ namespace Filminurk.Controllers
             if (id == null || thisuderid == null)
             {
                 return BadRequest();
-                //TODO: return corresponding errorviews. id not found for list,  and user login error for userid
+                //TODO: return corresponding errorviews. id not fund for list,  and user login error for userid
             }
-            var thisList = _context.FavouriteLists
+
+            var thisList = await _context.FavouriteLists
                 .Where(tl => tl.FavouriteListID == id && tl.ListBelongsToUser == thisuderid.ToString())
                 .Select(
                 stl => new FavouriteListUserDetailsViewModel
@@ -131,24 +133,46 @@ namespace Filminurk.Controllers
                     IsPrivate = stl.IsPrivate,
                     ListOfMovies = stl.ListOfMovies,
                     IsReported = stl.IsReported,
-                    Image = _context.FilesToDatabase
-                    .Where(i => i.ListID == stl.FavouriteListID)
-                    .Select(si => new FavouriteListIndexImageViewModel
-                    {
-                        ImageID = si.ImageID,
-                        ListID = si.ListID,
-                        ImageData = si.ImageData,
-                        ImageTitle = si.ImageTitle,
-                        Image = string.Format("data:image/gif;base64,{0}",Convert.ToBase64String(si.ImageData))
-                    }).FirstOrDefault()
+                    //Image = _context.FilesToDatabase
+                    //.Where(i => i.ListID == stl.FavouriteListID)
+                    //.Select(si => new FavouriteListIndexImageViewModel
+                    //{
+                    //    ImageID = si.ImageID,
+                    //    ListID = si.ListID,
+                    //    ImageData = si.ImageData,
+                    //    ImageTitle = si.ImageTitle,
+                    //    Image = string.Format("data:image/gif;base64,{0}" + Convert.ToBase64String(si.ImageData))
+                    //}).FirstOrDefault()
                     
-                }).ToList();
+                }).FirstOrDefaultAsync();
             //add viewdata attribute here later, to discern between user and admin
             if (thisList == null)
             {
                 return NotFound();
             }
             return View("Details", thisList);
+        }
+        [HttpPost]
+        public IActionResult UserTogglePrivacy(Guid id)
+        {
+            FavouriteList thisList = _favouriteListsServices.DetailAsync(id);
+
+            FavouriteListDTO updatedList = new FavouriteListDTO();
+            updatedList.FavouriteListID = thisList.FavouriteListID;
+            updatedList.ListBelongsToUser = thisList.ListBelongsToUser;
+            updatedList.ListName = thisList.ListName;
+            updatedList.ListDescription = thisList.ListDescription;
+            updatedList.IsPrivate = thisList.IsPrivate;
+            updatedList.ListOfMovies = thisList.ListOfMovies;
+            updatedList.IsReported = thisList.IsReported;
+            updatedList.isMovieOrActor = thisList.isMovieOrActor;
+            updatedList.ListCreatedAt = thisList.ListCreatedAt;
+            updatedList.ListModifiedAt = DateTime.Now;
+            updatedList.ListDeletedAt= thisList.ListDeletedAt;
+
+            thisList.IsPrivate = !thisList.IsPrivate;
+            _favouriteListsServices.Update(thisList)
+            return View("Details");
         }
 
         private List<Guid> MovieToId(List<Movie> ListOfMovies)
