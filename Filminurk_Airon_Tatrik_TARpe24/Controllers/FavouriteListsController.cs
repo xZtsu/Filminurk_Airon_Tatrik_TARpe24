@@ -121,7 +121,8 @@ namespace Filminurk.Controllers
             }
 
             var thisList = await _context.FavouriteLists
-                .Where(tl => tl.FavouriteListID == id && tl.ListBelongsToUser == thisuderid.ToString())
+                .Where(tl => tl.FavouriteListID == id &&
+                tl.ListBelongsToUser == thisuderid.ToString())
                 .Select(
                 stl => new FavouriteListUserDetailsViewModel
                 {
@@ -171,7 +172,7 @@ namespace Filminurk.Controllers
             updatedList.ListDeletedAt= thisList.ListDeletedAt;
 
             thisList.IsPrivate = !thisList.IsPrivate;
-            _favouriteListsServices.Update(thisList)
+            _favouriteListsServices.Update(thisList);
             return View("Details");
         }
 
