@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Filminurk.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class skibidi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace Filminurk.Data.Migrations
                 columns: table => new
                 {
                     FavouriteListID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ListBelongsToUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ListBelongsToUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isMovieOrActor = table.Column<bool>(type: "bit", nullable: false),
                     ListName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ListDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
