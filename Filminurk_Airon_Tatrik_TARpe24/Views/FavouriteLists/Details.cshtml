@@ -1,6 +1,7 @@
 ﻿@model Filminurk.Models.FavouriteLists.FavouriteListUserDetailsViewModel
 @{
     int rowNumber = 1;
+    ViewData["Title"] = "Favourite List Details";
 }
 <div>
     @if (Model.IsReported == true)
@@ -41,10 +42,15 @@
     }
     </table>
     <div>
-        <input asp-action="UserDelete" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteListID" 
-        type="submit" class="btn btn-danger" value="Kustuta Nimekiri"/>
+
+        <form asp-action="UserDelete" asp-controller="FavouriteLists" method="post" class="d-inline">
+            <input type="hidden" name="id" value="@Model.FavouriteListID"/>
+               <button type="submit" class="btn btn-danger" value="Kustuta nimekiri"></button>
+            </form>
+
         <input asp-action="UserTogglePrivacy" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteListID"
         type="submit" class="btn btn-warning" value="Muuda nimekiri privaatseks" />
+
         <input asp-action="UserEditList" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteListID"
                type="submit" class="btn btn-success" value="Muuda nimekirja sisu ja andmeid" />
         <a asp-action="Index" asp-controller="FavouriteLists" class="btn btn-light">Tagasi</a>

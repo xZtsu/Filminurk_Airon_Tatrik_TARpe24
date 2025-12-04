@@ -36,6 +36,7 @@ namespace Filminurk.Controllers
                     ListName = x.ListName,
                     ListDescription = x.ListDescription,
                     ListCreatedAt = x.ListCreatedAt,
+                    ListDeletedAt = (DateTime)x.ListDeletedAt,
                     Image = (List<FavouriteListIndexImageViewModel>)_context.FilesToDatabase
                     .Where(ml => ml.ListID == x.FavouriteListID)
                     .Select(li => new FavouriteListIndexImageViewModel
@@ -112,19 +113,15 @@ namespace Filminurk.Controllers
             return RedirectToAction("Index", vm);
         }
         [HttpGet]
-        public async Task<IActionResult> UserDetails(Guid id, Guid thisuderid)
+        public async Task<IActionResult> UserDetails(Guid id, Guid thisuserid)
         {
-            if (id == null || thisuderid == null)
-            {
+            if (id == Guid.Empty || thisuserid == Guid.Empty)
                 return BadRequest();
-                //TODO: return corresponding errorviews. id not fund for list,  and user login error for userid
-            }
 
             var thisList = await _context.FavouriteLists
                 .Where(tl => tl.FavouriteListID == id &&
-                tl.ListBelongsToUser == thisuderid.ToString())
-                .Select(
-                stl => new FavouriteListUserDetailsViewModel
+                             tl.ListBelongsToUser == thisuserid.ToString())
+                .Select(stl => new FavouriteListUserDetailsViewModel
                 {
                     FavouriteListID = stl.FavouriteListID,
                     ListBelongsToUser = stl.ListBelongsToUser,
@@ -134,6 +131,10 @@ namespace Filminurk.Controllers
                     IsPrivate = stl.IsPrivate,
                     ListOfMovies = stl.ListOfMovies,
                     IsReported = stl.IsReported,
+                    ListCreatedAt = stl.ListCreatedAt,
+                    ListModifiedAt = stl.ListModifiedAt,
+                    ListDeletedAt = stl.ListDeletedAt,
+                    
                     //Image = _context.FilesToDatabase
                     //.Where(i => i.ListID == stl.FavouriteListID)
                     //.Select(si => new FavouriteListIndexImageViewModel
@@ -153,29 +154,66 @@ namespace Filminurk.Controllers
             }
             return View("Details", thisList);
         }
-        //[HttpPost]
-        //public IActionResult UserTogglePrivacy(Guid id)
-        //{
-        //    FavouriteList thisList = _favouriteListsServices.DetailAsync(id);
+        [HttpPost]
+        public async Task<IActionResult> UserTogglePrivacy(Guid id)
+        {
+            FavouriteList thisList = await _favouriteListsServices.DetailAsync(id);
 
-        //    FavouriteListDTO updatedList = new FavouriteListDTO();
-        //    updatedList.FavouriteListID = thisList.FavouriteListID;
-        //    updatedList.ListBelongsToUser = thisList.ListBelongsToUser;
-        //    updatedList.ListName = thisList.ListName;
-        //    updatedList.ListDescription = thisList.ListDescription;
-        //    updatedList.IsPrivate = thisList.IsPrivate;
-        //    updatedList.ListOfMovies = thisList.ListOfMovies;
-        //    updatedList.IsReported = thisList.IsReported;
-        //    updatedList.isMovieOrActor = thisList.isMovieOrActor;
-        //    updatedList.ListCreatedAt = thisList.ListCreatedAt;
-        //    updatedList.ListModifiedAt = DateTime.Now;
-        //    updatedList.ListDeletedAt= thisList.ListDeletedAt;
+            FavouriteListDTO updatedList = new FavouriteListDTO();
+            updatedList.FavouriteListID = thisList.FavouriteListID;
+            updatedList.ListBelongsToUser = thisList.ListBelongsToUser;
+            updatedList.ListName = thisList.ListName;
+            updatedList.ListDescription = thisList.ListDescription;
+            updatedList.IsPrivate = thisList.IsPrivate;
+            updatedList.ListOfMovies = thisList.ListOfMovies;
+            updatedList.IsReported = thisList.IsReported;
+            updatedList.isMovieOrActor = thisList.isMovieOrActor;
+            updatedList.ListCreatedAt = thisList.ListCreatedAt;
+            updatedList.ListModifiedAt = DateTime.Now;
+            updatedList.ListDeletedAt = DateTime.Now;
+            
 
-        //    thisList.IsPrivate = !thisList.IsPrivate;
-        //    _favouriteListsServices.Update(thisList);
-        //    return View("Details");
-        //}
+            var result = await _favouriteListsServices.Update(updatedList,"Private");
+            //if (result == null || result.IsPrivate != !result.IsPrivate)
+            //{
+            //    return BadRequest();
+            //}
+            await _context.SaveChangesAsync();
 
+            return RedirectToAction("UserDetails", result.FavouriteListID);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserDelete(Guid id)
+        {
+            var deletedlist = await _favouriteListsServices.DetailAsync(id);
+            deletedlist.ListDeletedAt = DateTime.Now;
+
+
+
+            var dto = new FavouriteListDTO();
+            
+            dto.FavouriteListID = deletedlist.FavouriteListID;
+            dto.ListBelongsToUser = deletedlist.ListBelongsToUser;
+            dto.ListName = deletedlist.ListName;
+            dto.ListDescription = deletedlist.ListDescription;
+            dto.IsPrivate = deletedlist.IsPrivate;
+            dto.ListOfMovies = deletedlist.ListOfMovies;
+            dto.IsReported = deletedlist.IsReported;
+            dto.isMovieOrActor = deletedlist.isMovieOrActor;
+            dto.ListCreatedAt = deletedlist.ListCreatedAt;
+            dto.ListModifiedAt = DateTime.Now;
+            dto.ListDeletedAt = DateTime.Now;
+            
+
+            var result = await _favouriteListsServices.Update(dto,"Delete");
+            if (result == null)
+            {
+                NotFound();
+            }
+            return RedirectToAction ("Index");
+        }
+        
+            
         private List<Guid> MovieToId(List<Movie> ListOfMovies)
         { 
             var result = new List<Guid>();

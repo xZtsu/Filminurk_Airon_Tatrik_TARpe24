@@ -25,6 +25,7 @@ namespace Filminurk.ApplicationServices.Services
         public async Task<FavouriteList> DetailAsync(Guid id)
         {
             var result = await _context.FavouriteLists
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.FavouriteListID == id);
             return result;
         }
@@ -49,8 +50,39 @@ namespace Filminurk.ApplicationServices.Services
             //}
             return newList;
         }
-        //public async Task<FavouriteList> Update(FavouriteListDTO updatedList)
-        //{ 
-        //}
+        public async Task<FavouriteList> Update(FavouriteListDTO updatedList, string typeOfMethod)
+        {
+            FavouriteList updatedListInDB = new();
+
+            updatedListInDB.FavouriteListID = (Guid)updatedList.FavouriteListID;
+            updatedListInDB.ListBelongsToUser = updatedList.ListBelongsToUser;
+            updatedListInDB.isMovieOrActor = (bool)updatedList.isMovieOrActor;
+            updatedListInDB.ListName = updatedList.ListName;
+            updatedListInDB.ListDescription = updatedList.ListDescription;
+            updatedListInDB.IsPrivate = (bool)updatedList.IsPrivate;
+            updatedListInDB.ListOfMovies = updatedList.ListOfMovies;
+            updatedListInDB.ListCreatedAt = updatedList.ListCreatedAt;
+            updatedListInDB.ListDeletedAt = updatedList.ListDeletedAt;
+            updatedListInDB.ListModifiedAt = updatedList.ListModifiedAt;
+            if(typeOfMethod == "Delete")
+            {
+                
+                _context.Entry(updatedListInDB).Property(l => l.ListDeletedAt).IsModified = true;
+                
+            }
+            
+            if(typeOfMethod == "private")
+            {
+                
+                _context.Entry(updatedListInDB).Property(l => l.IsPrivate).IsModified = true;
+               
+            }
+            _context.Entry(updatedListInDB).Property(l => l.ListModifiedAt).IsModified = true;
+
+            await _context.SaveChangesAsync();
+            return updatedListInDB;
+
+            //}
+        }
     }
 }
