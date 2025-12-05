@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Filminurk.Data.Migrations
 {
     [DbContext(typeof(FilminurkTARpe24Context))]
-    [Migration("20251204084842_sigmaTop")]
-    partial class sigmaTop
+    [Migration("20251205085205_Sigma")]
+    partial class Sigma
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
