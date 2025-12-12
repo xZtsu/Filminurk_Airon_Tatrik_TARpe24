@@ -1,4 +1,4 @@
-﻿using Filminurk.ApplicationServices.Services;
+﻿
 using Filminurk.Core.Domain;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
@@ -6,6 +6,7 @@ using Filminurk.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Filminurk.Controllers
 {
@@ -73,7 +74,7 @@ namespace Filminurk.Controllers
                 {
                     return RedirectToAction("Login");
                 }
-                var result = await _userManager.ChangePasswordAsync(user,model.CurrentPassword,model.NewPassword);
+                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -103,7 +104,7 @@ namespace Filminurk.Controllers
                 if (user != null && await _userManager.IsEmailConfirmedAsync(user))
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var passwordResetLink = Url.Action("ResetPassword", "Accounts", new{email = model.Email, token = token}, Request.Scheme);
+                    var passwordResetLink = Url.Action("ResetPassword", "Accounts", new { email = model.Email, token = token }, Request.Scheme);
                     return View("ForgotPasswordConfirmation");
                 }
             }
@@ -187,6 +188,7 @@ namespace Filminurk.Controllers
                     UserName = model.DisplayName,
                     Email = model.Email,
                     ProfileType = model.ProfileType,
+                    DisplayName = model.DisplayName,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -195,7 +197,7 @@ namespace Filminurk.Controllers
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { userID = user.Id, token = token }, Request.Scheme);
-                    //homework task: koosta email kasutajalt kasutajalt pärineva aadressile saatmiseks, kasutaja saab oma postkastist kätte emaili, kinnituslingiga
+                    //homework task: koosta email kasutajalt pärineva aadressile saatmiseks, kasutaja saab oma postkastist kätte emaili, kinnituslingiga
                     // mille jaoks kasutatakse tokenit, siin tuleb välja kutsuda vastav, uus, emaili saatmise meetod, mis saadab õige sisuga kirja
                 }
 
@@ -226,7 +228,7 @@ namespace Filminurk.Controllers
             }
             return BadRequest();
         }
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnURL)
         {
@@ -243,7 +245,7 @@ namespace Filminurk.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, model.Password)))
+                if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, model.Password)))
                 {
                     ModelState.AddModelError("", "Sinu email ei ole kinnitatud, palun vaata spämmikausta");
                     return View(model);
@@ -251,7 +253,7 @@ namespace Filminurk.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(returnURL)&& Url.IsLocalUrl(returnURL))
+                    if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
                     {
                         return Redirect(returnURL);
                     }
@@ -259,6 +261,15 @@ namespace Filminurk.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                }
+                if (result.Succeeded == false)
+                {
+                   ModelState.AddModelError("","Kasutajanimi või parool on vale.");
+                }
+                if (result.IsNotAllowed)
+                {
+                    ModelState.AddModelError("", "Sisselogimine ebaõnnestus, kasutaja keelatud");
+
                 }
                 if (result.IsLockedOut)
                 {
