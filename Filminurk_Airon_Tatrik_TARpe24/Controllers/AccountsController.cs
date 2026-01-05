@@ -1,5 +1,7 @@
 ﻿
+using Filminurk.ApplicationServices.Services;
 using Filminurk.Core.Domain;
+using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
 using Filminurk.Models.Accounts;
@@ -17,16 +19,19 @@ namespace Filminurk.Controllers
         private readonly FilminurkTARpe24Context _context;
         private readonly IEmailsServices _emailsServices;
 
+
         public AccountsController
             (
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            FilminurkTARpe24Context context
+            FilminurkTARpe24Context context,
+            IEmailsServices emailsServices
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _emailsServices = emailsServices;
         }
         [HttpGet]
         public async Task<IActionResult> AddPassword()
@@ -198,16 +203,18 @@ namespace Filminurk.Controllers
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { userID = user.Id, token = token }, Request.Scheme);
-                    //homework task: koosta email kasutajalt pärineva aadressile saatmiseks, kasutaja saab oma postkastist kätte emaili, kinnituslingiga
-                    // mille jaoks kasutatakse tokenit, siin tuleb välja kutsuda vastav, uus, emaili saatmise meetod, mis saadab õige sisuga kirja
+                    var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { UserID = user.Id, token = token }, Request.Scheme);
+                    var dto = new EmailDTO()
+                    {
+                        SendToThisAddress = model.Email,
+                        EmailSubject = "Email Confirmation",
+                        EmailContent = confirmationLink,
+                    };
+                    _emailsServices.SendEmail(dto);
+                    return RedirectToAction("Index", "Home");
                 }
-
-                //
-
                 return RedirectToAction("Index", "Home");
             }
-
             return BadRequest();
         }
         [HttpGet]
