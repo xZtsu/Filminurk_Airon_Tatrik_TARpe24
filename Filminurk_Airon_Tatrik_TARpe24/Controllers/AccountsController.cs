@@ -185,10 +185,12 @@ namespace Filminurk.Controllers
             {
                 var user = new ApplicationUser()
                 {
-                    UserName = model.DisplayName,
+                    UserName = model.Email,
                     Email = model.Email,
                     ProfileType = model.ProfileType,
                     DisplayName = model.DisplayName,
+                    AvatarImageID = Guid.NewGuid().ToString(),
+
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
