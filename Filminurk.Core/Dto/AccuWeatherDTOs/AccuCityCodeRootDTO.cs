@@ -22,7 +22,7 @@ namespace Filminurk.Core.Dto.AccuWeatherDTOs
         public Geoposition? Geoposition { get; set; }
         public bool IsAlias { get; set; }
         public SupplementalAdminArea[]? SupplementalAdminAreas { get; set; }
-        public string[] DataSets { get; set; }
+        public string[]? DataSets { get; set; }
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
        
 
@@ -72,20 +72,20 @@ namespace Filminurk.Core.Dto.AccuWeatherDTOs
     }
     public class Metric
     {
-        public int Value{ get; set; }
-        public int Unit { get; set; }
+        public double Value{ get; set; }
+        public string Unit { get; set; } = string.Empty;
         public int UnitType { get; set; }
     }
     public class Imperial
     {
-        public int Value{ get; set; }
-        public int Unit { get; set; }
+        public double Value{ get; set; }
+        public string Unit { get; set; } = string.Empty;
         public int UnitType { get; set; }
     }
     public  class SupplementalAdminArea
     {
         public int Level { get; set; }
-        public string LoacalizedName { get; set; } = string.Empty;
+        public string LocalizedName { get; set; } = string.Empty;
         public string EnglishName { get; set; } = string.Empty;
     }
     public class AirAndPollen

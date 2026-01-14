@@ -31,11 +31,13 @@ namespace Filminurk.Core.Dto.AccuWeatherDTOs
 
         public int DayIcon {  get; set; }
         public string DayIconPhrase { get; set; } = string.Empty;
+        public bool DayHasPrescripitation { get; set; }
         public string DayPrecipitationType {  get; set; } = string.Empty;
         public string DayPrecipitationIntensity {  get; set; } = string.Empty;
 
         public int NightIcon { get; set; }
         public string NightIconPhrase { get; set; } = string.Empty;
+        public bool NightHasPrescripitation { get; set; }
         public string NightPrecipitationType {  get; set; } = string.Empty;
         public string NightPrecipitationIntensity {  get; set; } = string.Empty;
 
