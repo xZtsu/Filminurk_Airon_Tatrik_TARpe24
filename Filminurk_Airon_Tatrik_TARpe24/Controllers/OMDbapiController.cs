@@ -1,5 +1,7 @@
-﻿using Filminurk.Core.Dto.OMDbDTOs;
+﻿using Filminurk.Core.Domain;
+using Filminurk.Core.Dto.OMDbDTOs;
 using Filminurk.Core.ServiceInterface;
+using Filminurk.Data;
 using Filminurk.Models.OMDb;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +10,16 @@ namespace Filminurk.Controllers
         public class OMDbapiController : Controller
         {
             private readonly IOMDbServices _omdbServices;
+        private readonly FilminurkTARpe24Context _context;
             public OMDbapiController
                 (
-                 IOMDbServices omdbServices
+                 IOMDbServices omdbServices,
+                 FilminurkTARpe24Context context
+
                 )
             {
                 _omdbServices = omdbServices;
+            _context = context;
             }
             [HttpGet]
             public IActionResult Index()
@@ -39,7 +45,23 @@ namespace Filminurk.Controllers
                 model.Plot = dto.Plot;
                 model.imdbRating = dto.imdbRating;
 
-                return View(model);
+            // Save to database
+            var omdbToDatabase = new OMDbToDatabase
+            {
+                Id = Guid.NewGuid(),
+                Title = dto.Title,
+                Released = dto.Released,
+                Director = dto.Director,
+                Actors = dto.Actors,
+                Plot = dto.Plot,
+                imdbRating = dto.imdbRating,
+
+            };
+
+            _context.OMDbToDatabase.Add(omdbToDatabase);
+            await _context.SaveChangesAsync();
+
+            return View(model);
             }
         }
 }
