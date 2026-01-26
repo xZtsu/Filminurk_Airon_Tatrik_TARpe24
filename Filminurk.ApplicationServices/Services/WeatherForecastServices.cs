@@ -18,28 +18,28 @@ namespace Filminurk.ApplicationServices.Services
             var cityUrl = $"https://dataservice.accuweather.com/locations/v1/cities/search";
 
             /* get City*/
-            using (var HttpClient = new HttpClient())
-            {
-                HttpClient.BaseAddress = new Uri(cityUrl);
-                HttpClient.DefaultRequestHeaders.Accept.Clear();
-                HttpClient.DefaultRequestHeaders.Accept.Add(
-                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
-                );
-                var response = await HttpClient.GetAsync($"?apikey={apikey}&q={dto.CityName}");
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                List<AccuCityCodeRootFlatDTO> codeData = JsonSerializer.Deserialize<List<AccuCityCodeRootFlatDTO>>(jsonResponse);
+            //using (var HttpClient = new HttpClient())
+            //{
+            //    HttpClient.BaseAddress = new Uri(CityUrl);
+            //    HttpClient.DefaultRequestHeaders.Accept.Clear();
+            //    HttpClient.DefaultRequestHeaders.Accept.Add(
+            //        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            //    );
+            //    var response = await HttpClient.GetAsync($"?apikey={apikey}&q={dto.CityName}");
+            //    var jsonResponse = await response.Content.ReadAsStringAsync();
+            //    List<AccuCityCodeRootFlatDTO> codeData = JsonSerializer.Deserialize<List<AccuCityCodeRootFlatDTO>>(jsonResponse);
 
-                dto.CityCode = codeData[0].Key;
-            }
-            string locationResponse = cityUrl+$"?apikey={apikey}&q={dto.CityName}";
+            //    dto.CityCode = codeData[0].Key;
+            //}
+            //string locationResponse = CityUrl+$"?apikey={apikey}&q={dto.CityName}";
 
-            using (var clientLocation = new HttpClient())
-            {
-                var httpResponseLocation = await clientLocation.GetAsync(locationResponse);
-                string jsonLocation = await httpResponseLocation.Content.ReadAsStringAsync();
-                AccuCityCodeRootDTO cityRootDto = JsonSerializer.Deserialize<AccuCityCodeRootDTO>(jsonLocation);
-                dto.CityCode = cityRootDto.Key;
-            }
+            //using (var clientLocation = new HttpClient())
+            //{
+            //    var httpResponseLocation = await clientLocation.GetAsync(locationResponse);
+            //    string jsonLocation = await httpResponseLocation.Content.ReadAsStringAsync();
+            //    AccuCityCodeRootDTO cityRootDto = JsonSerializer.Deserialize<AccuCityCodeRootDTO>(jsonLocation);
+            //    dto.CityCode = cityRootDto.Key;
+            //}
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(cityUrl);
