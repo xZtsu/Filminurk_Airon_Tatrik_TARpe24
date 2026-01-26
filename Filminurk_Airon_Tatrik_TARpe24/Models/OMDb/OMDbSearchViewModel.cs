@@ -1,4 +1,4 @@
-﻿namespace Filminurk.Models.OMDb
+﻿﻿namespace Filminurk.Models.OMDb
 {
     public class OmdbSearchViewModel
     {

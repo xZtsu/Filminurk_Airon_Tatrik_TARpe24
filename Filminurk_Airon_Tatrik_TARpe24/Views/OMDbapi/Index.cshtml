@@ -1,26 +1,24 @@
-﻿﻿<h2>Filmi import</h2>
+﻿﻿
+@model Filminurk.Models.OMDb.OmdbViewModel
+<h2>Filmi import</h2>
 
-<form method="post">
-    <input type="text" name="title" placeholder="Sisesta filmi nimi" />
+<form method="post" asp-action="Index" asp-controller="OMDbapi">
+    <input asp-for="Title" placeholder="Sisesta filmi nimi"/>
+    <hr/>
     <button type="submit">Impordi</button>
 </form>
 
-@if (!ViewData.ModelState.IsValid)
-{
-    foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-    {
-        <p>@error.ErrorMessage</p>
-    }
-}
 
-@if (ViewBag.Success != null)
-{
-    <p>@ViewBag.Success</p>
-}
+
+
 
 @if (Model != null)
 {
     <hr />
     <h3>@Model.Title </h3>
+    <h3>@Model.Released </h3>
+    <h3>@Model.Director </h3>
+    <h3>@Model.Actors </h3>
     <p>@Model.Plot</p>
+    <h3>@Model.imdbRating</h3>
 }
