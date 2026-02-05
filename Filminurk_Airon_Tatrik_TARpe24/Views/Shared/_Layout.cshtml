@@ -46,9 +46,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Omdbapi" asp-action="Index">Import Movie</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="RChat" asp-action="Index">Chat</a>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="RChat" asp-action="Index">Chat</a>
+                            </li>
+                        }
                     </ul>
                     <ul>
                         @if (signInManager.IsSignedIn(User))
